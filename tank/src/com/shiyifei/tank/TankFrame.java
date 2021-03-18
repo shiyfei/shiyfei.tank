@@ -15,6 +15,8 @@ public class TankFrame extends Frame {
 	private static final long serialVersionUID = 1L;
 
 	int x = 200, y = 200;
+	Dir dir = Dir.DOWN;
+	private static final int SPEED = 10;
 
 	public TankFrame() {
 		// 设置窗口大小
@@ -44,6 +46,21 @@ public class TankFrame extends Frame {
 //		g.fillRect(200, 200, 50, 50);
 //		System.out.println("11");
 		g.fillRect(x, y, 50, 50);
+
+		switch (dir) {
+		case LEFT:
+			x -= SPEED;
+			break;
+		case UP:
+			y -= SPEED;
+			break;
+		case RIGHT:
+			x += SPEED;
+			break;
+		case DOWN:
+			y += SPEED;
+			break;
+		}
 //		x += 10;
 //		y += 10;
 	}
@@ -79,19 +96,19 @@ public class TankFrame extends Frame {
 				break;
 			}
 
-			if (bL) {
-				x -= 10;
-			}
+			setMainTankDir();
 
-			if (bU) {
-				y -= 10;
-			}
-			if (bR) {
-				x += 10;
-			}
-			if (bD) {
-				y += 10;
-			}
+		}
+
+		private void setMainTankDir() {
+			if (bL)
+				dir = Dir.LEFT;
+			if (bU)
+				dir = Dir.UP;
+			if (bR)
+				dir = Dir.RIGHT;
+			if (bD)
+				dir = Dir.DOWN;
 		}
 
 		// 松开键的时候调用
