@@ -13,6 +13,7 @@ public class TankFrame extends Frame {
 	private static final long serialVersionUID = 1L;
 
 	Tank myTank = new Tank(200, 200, Dir.DOWN);
+	Bullet b = new Bullet(300, 300, Dir.DOWN);
 
 	public TankFrame() {
 		// 设置窗口大小
@@ -38,9 +39,9 @@ public class TankFrame extends Frame {
 
 	@Override
 	public void paint(Graphics g) {
-		// 填充一个矩形黑块
+
 		myTank.paint(g);
+		b.paint(g);
 	}
 
-	
 }
