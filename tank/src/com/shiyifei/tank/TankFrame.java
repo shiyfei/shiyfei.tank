@@ -1,7 +1,9 @@
 package com.shiyifei.tank;
 
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -14,10 +16,13 @@ public class TankFrame extends Frame {
 
 	Tank myTank = new Tank(200, 200, Dir.DOWN);
 	Bullet b = new Bullet(300, 300, Dir.DOWN);
+	Image offScreenImage = null;
+
+	static final int GAME_WIDTH = 800, GAME_HEIGTH = 600;
 
 	public TankFrame() {
 		// 设置窗口大小
-		this.setSize(800, 600);
+		this.setSize(GAME_WIDTH, GAME_HEIGTH);
 		// 设置能否改变窗口大小
 		this.setResizable(false);
 		// 设置窗口标题
@@ -35,6 +40,28 @@ public class TankFrame extends Frame {
 				System.exit(0);
 			}
 		});
+	}
+
+	// 用双缓存方法解决闪烁问题(游戏引擎自动封装)
+	// 将画面先画到内存里，画完之后再一下显示到屏幕上
+	// 画面更新的时候会调用update方法
+	@Override
+	public void update(Graphics g) {
+		if (offScreenImage == null) {
+			// 内存里面创建同样大小的图片
+			offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGTH);
+		}
+		
+		Graphics gOffScreen = offScreenImage.getGraphics();
+		
+		Color c = gOffScreen.getColor();
+		gOffScreen.setColor(Color.WHITE);
+		gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGTH);
+		gOffScreen.setColor(c);
+
+		this.paint(gOffScreen);
+		// 将内存画好的画面显示到屏幕上
+		g.drawImage(offScreenImage, 0, 0, null);
 	}
 
 	@Override
