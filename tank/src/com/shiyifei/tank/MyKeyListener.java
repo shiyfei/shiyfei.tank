@@ -60,11 +60,15 @@ public class MyKeyListener extends KeyAdapter {
 			bD = false;
 			break;
 		}
-		stopMainTank();
+		setMainTankDir();
 	}
 
 	private void setMainTankDir() {
-		this.myTank.setMoving(true);
+		if (!bL && !bU && !bR && !bD) {
+			this.myTank.setMoving(false);
+		} else {
+			this.myTank.setMoving(true);
+		}
 		if (bL)
 			myTank.setDir(Dir.LEFT);
 		if (bU)
@@ -74,9 +78,4 @@ public class MyKeyListener extends KeyAdapter {
 		if (bD)
 			myTank.setDir(Dir.DOWN);
 	}
-
-	private void stopMainTank() {
-		myTank.setMoving(false);
-	}
-
 }
