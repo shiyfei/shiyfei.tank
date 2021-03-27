@@ -37,6 +37,9 @@ public class MyKeyListener extends KeyAdapter {
 		case KeyEvent.VK_DOWN:
 			bD = true;
 			break;
+		case KeyEvent.VK_CONTROL:
+			myTank.fire();
+			break;
 		}
 		setMainTankDir();
 	}

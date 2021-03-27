@@ -8,11 +8,11 @@ public class Bullet {
 	private static int WIDTH = 20;
 	private static int HEIGTH = 20;
 
+	// 子弹的初始位置
 	private int x, y;
 	private Dir dir;
 
 	public Bullet(int x, int y, Dir dir) {
-		super();
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
@@ -25,6 +25,7 @@ public class Bullet {
 		g.setColor(c);
 
 		this.move();
+
 	}
 
 	private void move() {

@@ -14,8 +14,17 @@ public class TankFrame extends Frame {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	Tank myTank = new Tank(200, 200, Dir.DOWN);
-	Bullet b = new Bullet(300, 300, Dir.DOWN);
+	Tank myTank = new Tank(200, 200, Dir.DOWN, this, false);
+	private Bullet b = new Bullet(300, 300, Dir.DOWN);
+
+	public Bullet getB() {
+		return b;
+	}
+
+	public void setB(Bullet b) {
+		this.b = b;
+	}
+
 	Image offScreenImage = null;
 
 	static final int GAME_WIDTH = 800, GAME_HEIGTH = 600;
@@ -51,9 +60,9 @@ public class TankFrame extends Frame {
 			// 内存里面创建同样大小的图片
 			offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGTH);
 		}
-		
+
 		Graphics gOffScreen = offScreenImage.getGraphics();
-		
+
 		Color c = gOffScreen.getColor();
 		gOffScreen.setColor(Color.WHITE);
 		gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGTH);
@@ -67,8 +76,11 @@ public class TankFrame extends Frame {
 	@Override
 	public void paint(Graphics g) {
 
-		myTank.paint(g);
-		b.paint(g);
+		this.myTank.paint(g);
+		if (this.myTank.isFiring()) {
+			this.b.paint(g);
+		}
+
 	}
 
 }
