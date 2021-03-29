@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TankFrame extends Frame {
 
@@ -15,14 +17,14 @@ public class TankFrame extends Frame {
 	private static final long serialVersionUID = 1L;
 
 	Tank myTank = new Tank(200, 200, Dir.DOWN, this, false);
-	private Bullet b = new Bullet(300, 300, Dir.DOWN);
+	List<Bullet> bullets = new ArrayList<>();
 
-	public Bullet getB() {
-		return b;
+	public List<Bullet> getBullets() {
+		return bullets;
 	}
 
-	public void setB(Bullet b) {
-		this.b = b;
+	public void setBullets(List<Bullet> bullets) {
+		this.bullets = bullets;
 	}
 
 	Image offScreenImage = null;
@@ -76,9 +78,16 @@ public class TankFrame extends Frame {
 	@Override
 	public void paint(Graphics g) {
 
+		Color c = g.getColor();
+		g.setColor(Color.black);
+		g.drawString("子弹的数量:" + this.bullets.size(), 10, 60);
+		g.setColor(c);
+
 		this.myTank.paint(g);
 		if (this.myTank.isFiring()) {
-			this.b.paint(g);
+			for (int i = 0; i < this.bullets.size(); i++) {
+				bullets.get(i).paint(g);
+			}
 		}
 
 	}
